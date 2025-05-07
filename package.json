@@ -1,0 +1,13 @@
+{
+  "name": "voice-journal",
+  "version": "1.0.0",
+  "description": "A voice journaling app with transcription",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve",
+    "build": "echo 'No build step required'"
+  },
+  "dependencies": {
+    "serve": "^14.2.1"
+  }
+} 
