@@ -20,7 +20,7 @@ A simple voice journaling app that records audio and transcribes it using the Cu
    ```bash
    npm start
    ```
-4. Open http://localhost:3000 in your browser
+4. Open http://localhost:60331 in your browser
 
 ## Deployment
 
@@ -48,3 +48,9 @@ This app works best in modern browsers that support the MediaRecorder API:
 ## License
 
 MIT 
+
+const API_BASE_URL = "https://voice-journaling-app-development.cursor.so"; 
+
+const response = await fetch(`${API_BASE_URL}/transcribe`, { ... }); 
+
+const response = await fetch(`${API_BASE_URL}/save-transcription`, { ... }); 

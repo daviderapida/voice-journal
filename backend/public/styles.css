@@ -1,0 +1,41 @@
+.edit-button, .save-button {
+    margin: 10px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.edit-button {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.edit-button:hover {
+    background-color: #45a049;
+}
+
+.save-button {
+    background-color: #2196F3;
+    color: white;
+}
+
+.save-button:hover {
+    background-color: #1976D2;
+}
+
+#transcription {
+    min-height: 50px;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#transcription[contenteditable="true"] {
+    background-color: #f9f9f9;
+    border: 2px solid #2196F3;
+    outline: none;
+} 
