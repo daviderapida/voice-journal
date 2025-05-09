@@ -91,13 +91,13 @@
 <body>
     <div class="container">
         <h1>Voice Journal</h1>
-        <div class="controls">
-            <button id="recordButton">Start Recording</button>
-            <button id="stopButton">Stop Recording</button>
-        </div>
-        <div id="status">Click 'Start Recording' to begin your journal entry</div>
-        <div id="transcription"></div>
+        <div id="voice-journal"></div>
     </div>
-    <script src="app.js"></script>
+    <script src="https://voice-journal-j6z7kmi07-daviderapidas-projects.vercel.app/embed.js"></script>
+    <script>
+        new VoiceJournal('voice-journal', {
+            apiUrl: 'https://voice-journal-j6z7kmi07-daviderapidas-projects.vercel.app'
+        });
+    </script>
 </body>
 </html> 
