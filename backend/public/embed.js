@@ -2,7 +2,7 @@ class VoiceJournal {
     constructor(containerId, options = {}) {
         this.container = document.getElementById(containerId);
         this.options = {
-            apiUrl: options.apiUrl || window.location.origin,
+            apiUrl: options.apiUrl || 'https://voice-journal-j6z7kmi07-daviderapidas-projects.vercel.app',
             ...options
         };
         this.init();
@@ -207,7 +207,11 @@ class VoiceJournal {
             this.transcription.textContent = data.text;
             this.transcription.setAttribute('data-original-text', data.text);
             this.status.textContent = 'Transcription complete';
+            
+            // Show edit button and ensure it's properly initialized
             this.editButton.style.display = 'inline-block';
+            this.editButton.disabled = false;
+            console.log('Edit button should be visible now');
         } catch (error) {
             this.status.textContent = 'Error: ' + error.message;
             console.error('Transcription error:', error);
@@ -216,6 +220,8 @@ class VoiceJournal {
 
     toggleEdit() {
         const isEditing = this.transcription.contentEditable === 'true';
+        console.log('Toggle edit called, current state:', isEditing);
+        
         if (isEditing) {
             this.transcription.contentEditable = 'false';
             this.editButton.textContent = 'Edit';
@@ -232,6 +238,8 @@ class VoiceJournal {
     async saveTranscription() {
         try {
             const editedText = this.transcription.textContent;
+            console.log('Saving transcription:', editedText); // Debug log
+
             const response = await fetch(`${this.options.apiUrl}/save-transcription`, {
                 method: 'POST',
                 headers: {
@@ -241,8 +249,13 @@ class VoiceJournal {
             });
 
             if (!response.ok) {
-                throw new Error('Failed to save transcription');
+                const errorText = await response.text();
+                console.error('Save error response:', errorText); // Debug log
+                throw new Error(`Failed to save transcription: ${errorText}`);
             }
+
+            const result = await response.json();
+            console.log('Save response:', result); // Debug log
 
             this.transcription.setAttribute('data-original-text', editedText);
             this.transcription.contentEditable = 'false';

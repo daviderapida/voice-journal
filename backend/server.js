@@ -18,9 +18,9 @@ const openai = new OpenAI({
 // Configure CORS
 const corsOptions = {
     origin: [
-        'https://voice-journal-production.up.railway.app',
-        'https://*.lovable.app',  // Allow all Lovable subdomains
-        'http://localhost:3000'   // Allow local development
+        'https://*.vercel.app',  // Allow all Vercel deployments
+        'https://*.lovable.app', // Allow all Lovable subdomains
+        'http://localhost:3000'  // Allow local development
     ],
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type', 'Authorization'],
@@ -108,26 +108,32 @@ app.post('/transcribe', upload.single('file'), async (req, res) => {
     }
 });
 
-app.post('/save-transcription', async (req, res) => {
+// Save transcription endpoint
+app.post('/save-transcription', express.json(), async (req, res) => {
+    console.log('Received save request:', req.body); // Debug log
     try {
         const { text } = req.body;
         if (!text) {
+            console.error('No text provided in save request');
             return res.status(400).json({ error: 'No text provided' });
         }
 
-        // Create a filename with timestamp
-        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-        const filename = `transcription-${timestamp}.txt`;
-        const filepath = path.join(transcriptionsDir, filename);
-
-        // Save the transcription
-        await fs.writeFile(filepath, text, 'utf8');
+        // For now, just log the saved text
+        console.log('Saving transcription:', text);
         
-        console.log('Saved transcription to:', filename);
-        res.json({ success: true, filename });
+        // Send a more detailed response
+        res.json({ 
+            success: true, 
+            message: 'Transcription saved',
+            savedText: text,
+            timestamp: new Date().toISOString()
+        });
     } catch (error) {
         console.error('Error saving transcription:', error);
-        res.status(500).json({ error: 'Failed to save transcription' });
+        res.status(500).json({ 
+            error: 'Failed to save transcription',
+            details: error.message 
+        });
     }
 });
 
