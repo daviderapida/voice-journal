@@ -207,10 +207,7 @@ class VoiceJournal {
             this.transcription.textContent = data.text;
             this.transcription.setAttribute('data-original-text', data.text);
             this.status.textContent = 'Transcription complete';
-            
-            // Show edit button and ensure it's properly initialized
             this.editButton.style.display = 'inline-block';
-            this.editButton.disabled = false;
             console.log('Edit button should be visible now');
         } catch (error) {
             this.status.textContent = 'Error: ' + error.message;
@@ -221,7 +218,6 @@ class VoiceJournal {
     toggleEdit() {
         const isEditing = this.transcription.contentEditable === 'true';
         console.log('Toggle edit called, current state:', isEditing);
-        
         if (isEditing) {
             this.transcription.contentEditable = 'false';
             this.editButton.textContent = 'Edit';
